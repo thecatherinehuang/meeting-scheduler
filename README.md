@@ -19,7 +19,7 @@ IntervalWithMetadata: Used in determining how rescheduling could be helpful; int
 User: Used to define user preferences and associated eventIds; user.ts
 
 ## Functions, what they do, and why they exist
-### combineEvents(events: Array<Event>): Array<IntervalWithMetadata> 
+### `combineEvents(events: Array<Event>): Array<IntervalWithMetadata>` 
 - take a list of events and union intervals so that we are left with disjoint intervals
 - the return time is more complicated than needed in the current implemented functionality, 
 but the original plan was to use this metadata to help us with rescheduling some events 
@@ -28,12 +28,12 @@ described in the `Extensions` section below.
 - space complexity: O(n); I initially wrote an algorithm that did the combining in place, but 
 we sometimes need to tradeoff space efficiency for readability in code. Functions that have side effects like reordering the input are often hard to track and are not good building blocks to build off of. It's also unlikelly that space would be a limitation due to the small inputs.
 - time complexity: O(n log n) for the sort in the beginning.
-### intersectAvailabilities(userPreferences: Array<Array<Interval>>): Array<Interval>
+### `intersectAvailabilities(userPreferences: Array<Array<Interval>>): Array<Interval>`
 - in the absence of any events, this function gives us the intervals at which the users 
 are free to meet according to their preferences. 
 - the reason for separating this function out from the core algorithm is so that given an
 event, we can check if rescheduling it would help with availability.
-### getMeetingTimes(availableIntervals: Array<Interval>, duration: number): Array<string>
+### `getMeetingTimes(availableIntervals: Array<Interval>, duration: number): Array<string>`
 - this function takes the valid intervals and required durations and returns a list of 
 start times for the meeting
 - it was important to me to separate this out from the correctness portion to allow 
